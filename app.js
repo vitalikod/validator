@@ -9,11 +9,18 @@ const upload = multer({ dest: 'uploads/' });
 server.set('view engine', 'ejs');
 server.set('views', './views');
 
+server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
+
 server.use(express.static('./pablic'));
 
 server.get('/', (req, res) => {
     res.render('main');
     console.log(`server work on port ${port}`);
+})
+
+server.post('/test', upload.none(), (req, res) => {
+    console.log(req.body);
 })
 
 server.get('/product/:id', (req, res) => {
